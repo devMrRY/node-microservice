@@ -23,7 +23,7 @@ process.app = app;
 app.get('/test/multi_process', require('./controllers/multiProcess').multiProcess)
 app.get('/test/worker_thread', require('./controllers/workerThread').workerThread)
 app.get('/test/single_process', require('./controllers/singleProcess').singleProcess)
-app.get('/testEvent', require('./event-emitter').testEvent);
+app.get('/testEvent', require('./services/eventEmitter/event-emitter').testEvent);
 
 if(cluster.isMaster){
     let nCPUs = os.cpus().length;
