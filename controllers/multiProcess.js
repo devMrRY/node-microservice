@@ -1,5 +1,4 @@
-const EventEmitter = require('events');
-const ev = new EventEmitter();
+const {ev} = process.app.settings;
 const {fork} = require('child_process');
 
 module.exports.multiProcess = async(req, res) => {
