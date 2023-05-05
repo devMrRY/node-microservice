@@ -1,4 +1,5 @@
 const { Worker, workerData, isMainThread, parentPort } = require('worker_threads');
+const {ev} = process.app.settings;
 
 module.exports.workerThread = (req, res) => {
     console.time('w1')
@@ -7,13 +8,13 @@ module.exports.workerThread = (req, res) => {
         'sec': false,
     }
     if (isMainThread) {
-        const worker1 = new Worker('../services/multiThreading/first_worker.js', { workerData: 'Worker Data 1'});
+        const worker1 = new Worker('./services/multiThreading/first_worker.js', { workerData: 'Worker Data 1'});
         worker1.on('message', message => {
             done['first'] = true;
             console.log(message);
             ev.emit('done');
         });
-        const worker2 = new Worker('../services/multiThreading/sec_worker.js', { workerData: 'Worker Data 2' });
+        const worker2 = new Worker('./services/multiThreading/sec_worker.js', { workerData: 'Worker Data 2' });
         worker2.on('message', message => {
             done['sec'] = true;
             console.log(message);

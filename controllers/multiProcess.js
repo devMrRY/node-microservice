@@ -3,8 +3,8 @@ const {fork} = require('child_process');
 
 module.exports.multiProcess = async(req, res) => {
     console.time('t1')
-    const first = fork('../services/multiThreading/first_loop.js');
-    const sec = fork('../services/multiThreading/sec_loop.js');
+    const first = fork('./services/multiThreading/first_loop.js');
+    const sec = fork('./services/multiThreading/sec_loop.js');
     let done = {
         'first': false,
         'sec': false,
