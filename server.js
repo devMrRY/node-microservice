@@ -14,7 +14,7 @@ process.on('unhandledRejection', (err, data) => {
 })
 
 app.get('/server/health', (req, res) => {
-    res.send(`text updated new server is running ${process.pid}`);
+    res.send(`latest server is running ${process.pid}`);
 })
 
 app.set("ev", ev);
