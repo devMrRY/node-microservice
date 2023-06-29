@@ -9,7 +9,7 @@ const ev = new EventEmitter();
 app.use(cors());
 
 process.on('unhandledRejection', (err, data) => {
-    console.log('rahul unhandled rejection occured')
+    console.log('unhandled rejection occured')
     console.error(err ? err.message : err)
 })
 
