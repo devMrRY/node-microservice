@@ -19,11 +19,10 @@ process.on("unhandledRejection", (err, data) => {
 });
 
 app.get("/server/health", (req, res) => {
-    console.log(JSON.stringify(req.cookies))
   res.cookie("testcookie", "rahultest", {
     httpOnly: true,
     // secure: true,
-    sameSite: "none",
+    // sameSite: "none",
     maxAge: 1000 * 60 * 60 * 24,
   });
   res.send(`latest server is running ${process.pid}`);
