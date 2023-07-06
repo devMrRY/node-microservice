@@ -8,7 +8,7 @@ const EventEmitter = require("events");
 const ev = new EventEmitter();
 const corsOption = {
   credentials: true,
-  origin: "*",
+  origin: "https://mm-dev.manheim.ca",
   optionSuccessStatus: 200,
   method: "GET, POST, PUT, DELETE",
 };
