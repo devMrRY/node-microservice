@@ -19,9 +19,10 @@ process.on("unhandledRejection", (err, data) => {
 });
 
 app.get("/server/health", (req, res) => {
-  res.cookie("webToken", "rahultest", {
+    console.log(JSON.stringify(req.cookies))
+  res.cookie("testcookie", "rahultest", {
     httpOnly: true,
-    secure: true,
+    // secure: true,
     sameSite: "none",
     maxAge: 1000 * 60 * 60 * 24,
   });
