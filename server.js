@@ -8,7 +8,7 @@ const EventEmitter = require("events");
 const ev = new EventEmitter();
 const corsOption = {
   credentials: true,
-  origin: "https://mm-dev.manheim.ca",
+  origin: "*",
   optionSuccessStatus: 200,
   method: "GET, POST, PUT, DELETE",
 };
@@ -19,10 +19,10 @@ process.on("unhandledRejection", (err, data) => {
 });
 
 app.get("/server/health", (req, res) => {
-  res.cookie("testcookie", "rahultest", {
+  res.cookie("webToken", "rahultest", {
     httpOnly: true,
-    // secure: true,
-    // sameSite: "none",
+    secure: true,
+    sameSite: "none",
     maxAge: 1000 * 60 * 60 * 24,
   });
   res.send(`latest server is running ${process.pid}`);
