@@ -25,10 +25,10 @@ const store = new mongoSession({
 app.use(
   session({
     secret: "mysecretkey",
-    resave: true,
+    resave: true,   // forces session to be saved on store even if session is unmodified
     store: store,   // memory storage
     saveUninitialized: false,
-    rolling: true,
+    rolling: false,   // forces session cookie to be saved on every response
     cookie: {
       maxAge: 1000 * 60 * 60 * 10,
     },
