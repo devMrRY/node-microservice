@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const session = require("express-session");
+const mongoSession = require("connect-mongodb-session")(session);
 const cluster = require("cluster");
 const os = require("os");
 const PORT = 5000;
@@ -13,6 +15,26 @@ const corsOption = {
   method: "GET, POST, PUT, DELETE",
 };
 app.use(cors(corsOption));
+
+mongoURI = 'mongodb://localhost:27017/sessions';
+
+const store = new mongoSession({
+  uri: mongoURI,
+  collection: "mysessions"
+})
+app.use(
+  session({
+    secret: "mysecretkey",
+    resave: true,
+    store: store,   // memory storage
+    saveUninitialized: false,
+    rolling: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 10,
+    },
+  })
+);
+
 process.on("unhandledRejection", (err, data) => {
   console.log("unhandled rejection occured");
   console.error(err ? err.message : err);
@@ -27,6 +49,36 @@ app.get("/server/health", (req, res) => {
   });
   res.send(`latest server is running ${process.pid}`);
 });
+
+app.get("/login", (req, res) => {
+  req.session.isAuth = true;
+  req.session.save(() => res.redirect("/protectedroute"));
+});
+
+app.get(
+  "/protectedroute",
+  (req, res, next) => {
+    if (req.session.isAuth) {
+      next();
+    } else {
+      res.send("unAuthorized user");
+    }
+  },
+  (req, res) => {
+    res.send("proctected route successful");
+  }
+);
+
+app.get("/unprotectedroute", (req, res) => {
+  res.send("unproctected route successful");
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err)  throw err;
+    res.redirect("/unprotectedroute");
+  })
+})
 
 app.set("ev", ev);
 process.app = app;

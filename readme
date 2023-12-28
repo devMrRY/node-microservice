@@ -1,0 +1,4 @@
+** session based authentication **
+* used express-session to save the user session
+* and that session is saved into mongo store
+* a cookie will be stored on ui side with connect.sid cookie-name and same session-id will be stored in mongoStore.
