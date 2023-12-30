@@ -2,3 +2,9 @@
 * used express-session to save the user session
 * and that session is saved into mongo store
 * a cookie will be stored on ui side with connect.sid cookie-name and same session-id will be stored in mongoStore.
+
+** worker threads **
+* new thread will be created with file
+* unlike cluster and child_process worker threads can share data between mainThread and workerThread and among workerThread as well
+* not all workerData is transferrable so need to mention such type of data in transferList
+* can create MessageChannel to communicate between worker threads without affecting main thread

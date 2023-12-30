@@ -100,12 +100,12 @@ app.get(
   require("./services/eventEmitter/event-emitter").testEvent
 );
 
-if (cluster.isMaster) {
-  let nCPUs = os.cpus().length;
-  for (let i = 0; i < nCPUs; i++) {
-    let worker = cluster.fork();
-  }
-} else {
+// if (cluster.isMaster) {
+//   let nCPUs = os.cpus().length;
+//   for (let i = 0; i < nCPUs; i++) {
+//     let worker = cluster.fork();
+//   }
+// } else {
   const server = app.listen(PORT, () => {
     console.log(
       `server is listening with process ${process.pid} on port ${PORT}`
@@ -118,4 +118,4 @@ if (cluster.isMaster) {
       process.exit(0);
     });
   });
-}
+// }
